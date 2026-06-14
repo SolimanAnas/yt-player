@@ -1,0 +1,19 @@
+/* ================= SVG ICON THEME ================= */
+/* Inline SVGs inherit currentColor from parent — no filters needed */
+
+.action-icon,
+.setting-icon,
+.close-icon,
+.option-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  display: inline;
+  color: inherit;
+}
+
+.close-icon {
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: -0.15em;
+}
