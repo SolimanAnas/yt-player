@@ -1,0 +1,156 @@
+# YT Browser — Bundled Tracker Domain List
+# Based on EasyPrivacy + Disconnect.me lists
+
+# Google Analytics & tracking
+google-analytics.com
+analytics.google.com
+ssl.google-analytics.com
+www.google-analytics.com
+stats.g.doubleclick.net
+tagmanager.google.com
+optimize.google.com
+firebase.googleapis.com
+firebaseapp.com
+crashlytics.com
+fabric.io
+
+# Facebook tracking
+facebook.com
+facebook.net
+fbcdn.net
+analytics.facebook.com
+graph.facebook.com
+pixel.facebook.com
+
+# Microsoft/Bing tracking
+bing.com
+bat.bing.com
+c.clarity.ms
+clarity.ms
+scorecardresearch.com
+omtrdc.net
+2o7.net
+demdex.net
+everesttech.net
+adobedtm.com
+
+# Twitter/X tracking
+ads.twitter.com
+analytics.twitter.com
+t.co
+t.twitter.com
+
+# Amazon tracking
+fls-na.amazon.com
+fls.amazon.com
+affiliate-program.amazon.com
+
+# Various analytics
+hotjar.com
+fullstory.com
+logrocket.com
+mouseflow.com
+mixpanel.com
+segment.com
+cdn.segment.com
+amplitude.com
+heap.io
+heapanalytics.com
+kissmetrics.com
+statcounter.com
+woopra.com
+clicky.com
+chartbeat.com
+parsely.com
+cedexis.com
+newrelic.com
+nr-data.net
+
+# Marketing/advertising tracking
+marketo.com
+pardot.com
+hubspot.com
+hubspot.net
+hs-analytics.net
+hs-scripts.com
+hsforms.com
+hubapi.com
+
+# Data collection
+trustarc.com
+tiqcdn.com
+tealiumiq.com
+tagcommander.com
+krxd.net
+krux.com
+lotame.com
+bluekai.com
+exelate.com
+eyeota.com
+semasio.com
+addthis.com
+sharethis.com
+socialtwist.com
+
+# Fingerprinting services
+pixel.wp.com
+stats.wp.com
+pixel.quantserve.com
+e.nexac.com
+bam.nr-data.net
+beacon.taptica.com
+tracking.optimizely.com
+
+# Video tracking
+2mdn.net
+googlevideo.com
+advertising.youtube.com
+
+# CDN-based trackers
+d.turn.com
+match.adsrvr.org
+sync.mathtag.com
+sync.tidaltv.com
+scdn.cxense.com
+ssp.api.no
+api.cxense.com
+
+# Mobile analytics
+appsflyer.com
+kochava.com
+adjust.com
+branch.io
+bitly.com
+bit.ly
+singular.net
+tune.com
+tenjin.io
+libring.com
+trafficjunky.net
+trafficforce.com
+
+# Retargeting
+retargeting.com
+adroll.com
+perfectaudience.com
+fetchback.com
+triggertag.gorillanation.com
+
+# User behavior
+crazyegg.com
+inspectlet.com
+luckyorange.com
+smartlook.com
+sessioncam.com
+
+# Malvertising/spyware
+zedo.com
+kontera.com
+viglink.com
+skimlinks.com
+infolinks.com
+trafficleader.com
+popads.net
+popcash.net
+revcontent.com
+mgid.com
