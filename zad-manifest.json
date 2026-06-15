@@ -1,0 +1,48 @@
+{
+  "name": "زاد المسلم",
+  "short_name": "زاد المسلم",
+  "description": "تطبيق إسلامي شامل — قرآن كريم وأذكار ومواقيت الصلاة والأحاديث الشريفة",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./zad.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0d1a12",
+  "theme_color": "#1a3a2a",
+  "categories": ["religion", "lifestyle"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "القرآن الكريم",
+      "url": "./zad.html#quran",
+      "description": "استمع للقرآن الكريم"
+    },
+    {
+      "name": "الأذكار",
+      "url": "./zad.html#azkar",
+      "description": "أذكار الصباح والمساء"
+    },
+    {
+      "name": "مواقيت الصلاة",
+      "url": "./zad.html#prayer",
+      "description": "مواقيت الصلاة"
+    }
+  ],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
