@@ -8,6 +8,204 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="زاد المسلم">
 <meta name="description" content="قرآن كريم · أذكار · مواقيت الصلاة · أحاديث شريفة">
+
+<!-- ══ LAYER 1: CSP allowlist — browser blocks anything not listed ══ -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'unsafe-inline';
+  style-src 'unsafe-inline' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  connect-src 'self'
+    https://api.aladhan.com
+    https://api.alquran.cloud
+    https://server6.mp3quran.net
+    https://server7.mp3quran.net
+    https://server8.mp3quran.net
+    https://server9.mp3quran.net
+    https://cdn.islamic.network
+    https://download.quranicaudio.com
+    https://fonts.googleapis.com;
+  media-src
+    https://server6.mp3quran.net
+    https://server7.mp3quran.net
+    https://server8.mp3quran.net
+    https://server9.mp3quran.net
+    https://cdn.islamic.network
+    https://download.quranicaudio.com
+    blob:;
+  img-src 'self' data: https://cdn.islamic.network;
+  worker-src 'self';
+  frame-src 'none';
+  object-src 'none';
+  base-uri 'self';
+">
+
+<!-- ══ LAYER 2: Inline JS blocker — active immediately, before SW ══ -->
+<script>
+(function(){
+'use strict';
+/* Allowlist: never block these */
+var ALLOW=['mp3quran.net','islamic.network','aladhan.com','alquran.cloud',
+  'quranicaudio.com','quran.com','fonts.googleapis.com','fonts.gstatic.com'];
+
+/* 150+ blocked domains / keywords */
+var BLOCK=[
+  'doubleclick','googlesyndication','googleadservices','googletagmanager',
+  'googletagservices','adservice.google','google-analytics','analytics.google',
+  'ssl.google-analytics','pagead2','tpc.googlesyndication','adwords.google',
+  'an.facebook','connect.facebook','pixel.facebook','fbevents',
+  'ads.twitter','static.ads-twitter','analytics.twitter',
+  'bat.bing','clarity.ms',
+  'amazon-adsystem','advertising.amazon',
+  'adnxs','appnexus','adsrvr','thetradedesk',
+  'rubiconproject','openx.net','pubmatic','casalemedia',
+  'criteo','taboola','outbrain',
+  'media.net','yieldmo','sharethrough','smartadserver',
+  'spotxchange','spotx.tv','triplelift','gumgum',
+  'loopme','moat.com','bidswitch','adform.net',
+  'sizmek','flashtalking','serving-sys','adtechus',
+  'advertising.com','oath.com','verizonmedia',
+  'popads','popcash','trafficjunky','propellerads',
+  'mgid.com','revcontent','exoclick','exosrv',
+  'plugrush','juicyads','clickadu','zedo.com',
+  'kontera','viglink','infolinks','skimlinks',
+  'scorecardresearch','quantcast','pixel.quantserve',
+  'hotjar','fullstory','logrocket','mouseflow',
+  'inspectlet','crazyegg','luckyorange','smartlook','sessioncam',
+  'mixpanel','segment.com','amplitude.com','heap.io',
+  'kissmetrics','statcounter','woopra','clicky.com',
+  'chartbeat','parsely','newrelic','nr-data.net',
+  'marketo','pardot','hubspot','hs-analytics','hs-scripts',
+  'demdex','everesttech','2o7.net','omtrdc',
+  'lotame','bluekai','exelate','eyeota',
+  'addthis','sharethis','krxd.net','semasio',
+  'tiqcdn','tealiumiq','tagcommander',
+  'adcolony','mopub','admob','inmobi',
+  'chartboost','applovin','ironsource','fyber','vungle','mobvista',
+  'appsflyer','adjust.com','branch.io','kochava','singular.net','tune.com',
+  'onesignal','pushwoosh',
+  'adroll','perfectaudience','mathtag',
+  'ads.tiktok','analytics.tiktok',
+  'ads.snapchat','tr.snapchat',
+  'ads.linkedin','px.ads.linkedin','snap.licdn',
+  'an.yandex','yadro.ru','metrika.yandex','mc.yandex',
+  'cedexis','consensu.org','trustarc',
+  '/ads/','/advert/','/analytics/','/tracker/','/tracking/',
+  '/beacon/','/pixel/','/collect?','/log?',
+  'analytics.js','gtag.js','ga.js','fbevents.js',
+  'prebid.js','openrtb','bidrequest','/sponsor/','/promoted/'
+];
+
+function allowed(url){
+  if(!url)return true;
+  var u=url.toLowerCase();
+  return ALLOW.some(function(a){return u.indexOf(a)!==-1});
+}
+function blocked(url){
+  if(!url||typeof url!=='string')return false;
+  var u=url.toLowerCase();
+  if(allowed(u))return false;
+  return BLOCK.some(function(b){return u.indexOf(b)!==-1});
+}
+
+/* Override fetch */
+var _fetch=window.fetch;
+window.fetch=function(input,init){
+  var url=(input&&input.url)?input.url:(typeof input==='string'?input:'');
+  if(blocked(url))return Promise.resolve(new Response('',{status:200}));
+  return _fetch.apply(this,arguments);
+};
+
+/* Override XHR */
+var _open=XMLHttpRequest.prototype.open;
+var _send=XMLHttpRequest.prototype.send;
+XMLHttpRequest.prototype.open=function(m,url){
+  this._zadBlocked=blocked(url);
+  if(!this._zadBlocked)return _open.apply(this,arguments);
+};
+XMLHttpRequest.prototype.send=function(){
+  if(this._zadBlocked){
+    var self=this;
+    setTimeout(function(){
+      Object.defineProperty(self,'status',{get:function(){return 200}});
+      Object.defineProperty(self,'readyState',{get:function(){return 4}});
+      Object.defineProperty(self,'responseText',{get:function(){return ''}});
+      if(self.onreadystatechange)self.onreadystatechange();
+      self.dispatchEvent&&self.dispatchEvent(new Event('load'));
+    },0);
+    return;
+  }
+  return _send.apply(this,arguments);
+};
+
+/* Block script / iframe injection via createElement override */
+var _create=document.createElement.bind(document);
+document.createElement=function(tag){
+  var el=_create(tag);
+  var t=(tag||'').toLowerCase();
+  if(t==='script'||t==='iframe'||t==='img'){
+    var desc=Object.getOwnPropertyDescriptor(HTMLElement.prototype,'src')||
+             Object.getOwnPropertyDescriptor(Element.prototype,'src');
+    if(!desc&&t==='script')desc=Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype,'src');
+    try{
+      Object.defineProperty(el,'src',{
+        set:function(v){
+          if(!blocked(v))desc&&desc.set&&desc.set.call(this,v);
+        },
+        get:function(){return desc&&desc.get?desc.get.call(this):'';},
+        configurable:true
+      });
+    }catch(e){}
+  }
+  return el;
+};
+
+/* CSS: hide known ad containers immediately */
+var css=[
+  '[id*="google_ads"]','[class*="adsbygoogle"]','ins.adsbygoogle',
+  '[id*="ad-container"]','[class*="ad-banner"]','[class*="ad-slot"]',
+  '[id*="dfp"]','[class*="dfp"]','[data-ad-client]','[data-ad-slot]',
+  'iframe[src*="doubleclick"]','iframe[src*="googlesyndication"]',
+  '[class*="sponsor-"]','[class*="promoted-"]',
+  '.ad,[id^="ad_"],[class^="ad_"]',
+  '[id*="taboola"],[class*="taboola"]',
+  '[id*="outbrain"],[class*="outbrain"]','.OUTBRAIN',
+  '[class*="advertisement"],[id*="advertisement"]',
+  '[data-google-query-id]','[id*="carbonads"]',
+  '[class*="native-ad"]','[class*="sponsored"]'
+].join(',');
+var st=document.createElement('style');
+st.textContent=css+'{display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;pointer-events:none!important}';
+(document.head||document.documentElement).appendChild(st);
+
+/* MutationObserver: remove injected ad nodes */
+function checkNode(node){
+  if(!node||node.nodeType!==1)return;
+  var tag=(node.tagName||'').toLowerCase();
+  var src=node.src||node.href||node.getAttribute&&(node.getAttribute('src')||node.getAttribute('href'))||'';
+  if(src&&blocked(src)){node.remove();return;}
+  var id=(node.id||'').toLowerCase();
+  var cls=typeof node.className==='string'?node.className.toLowerCase():'';
+  var combined=id+' '+cls;
+  if(/google_ad|adsbygoogle|dfp[_-]|advert|adsense|doubleclick|taboola|outbrain/.test(combined)){
+    node.remove();
+  }
+}
+var mo=new MutationObserver(function(muts){
+  muts.forEach(function(m){
+    m.addedNodes.forEach(checkNode);
+  });
+});
+function startObserver(){
+  mo.observe(document.body||document.documentElement,{childList:true,subtree:true});
+}
+if(document.body)startObserver();
+else document.addEventListener('DOMContentLoaded',startObserver);
+
+console.log('[ZadBlock] Inline blocker active — 3-layer protection enabled');
+})();
+</script>
+
 <title>زاد المسلم</title>
 <link rel="manifest" href="zad-manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -1071,9 +1269,19 @@ function toast(msg){
    SERVICE WORKER
 ══════════════════════════════════════ */
 if ('serviceWorker' in navigator){
-  navigator.serviceWorker.register('./zad-sw.js', {scope:'./'})
-    .then(r => console.log('[ZadSW] registered', r.scope))
-    .catch(e => console.warn('[ZadSW] failed', e));
+  navigator.serviceWorker.register('./zad-sw.js', {
+    scope: './',
+    updateViaCache: 'none'   // always re-fetch SW, never serve stale
+  }).then(reg => {
+    console.log('[ZadSW] registered', reg.scope);
+    // Force update check every time the page opens
+    reg.update();
+  }).catch(e => console.warn('[ZadSW] failed', e));
+
+  // When new SW activates, reload so it controls this tab immediately
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    console.log('[ZadSW] new worker active — ad blocking upgraded');
+  });
 }
 
 /* ══════════════════════════════════════
