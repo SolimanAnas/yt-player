@@ -1,0 +1,92 @@
+[Adblock Plus 2.0]
+! Title: YT Browser — Bundled Filter Sample
+! Description: Core ad and tracker filters for YT Browser
+! Homepage: https://easylist.to
+
+! === Ad Server Domains ===
+||ads.youtube.com^
+||pagead2.googlesyndication.com^
+||googlesyndication.com/pagead^
+||adservice.google.com^
+||adservice.google.co.uk^
+||doubleclick.net^
+||googleadservices.com^
+||googletagservices.com^
+||tpc.googlesyndication.com^
+||ad.doubleclick.net^
+
+! === Facebook Ads ===
+||an.facebook.com^
+||connect.facebook.net/*/fbevents.js
+||www.facebook.com/tr^
+
+! === Twitter Ads ===
+||ads.twitter.com^
+||static.ads-twitter.com^
+||ads-twitter.com^
+
+! === Common Ad Networks ===
+||outbrain.com/api^
+||widgets.outbrain.com^
+||revcontent.com^
+||taboola.com/libtrc^
+||cdn.taboola.com^
+||trc.taboola.com^
+||criteo.com^
+||rtax.criteo.com^
+||rubiconproject.com^
+||openx.net^
+||pubmatic.com^
+||appnexus.com^
+
+! === Analytics ===
+||google-analytics.com^
+||ssl.google-analytics.com^
+||www.google-analytics.com^
+||analytics.google.com^
+||stats.g.doubleclick.net^
+||hotjar.com^
+||mouseflow.com^
+||fullstory.com^
+||mixpanel.com^
+||segment.com^
+||amplitude.com^
+||heap.io^
+
+! === YouTube-specific Cosmetic Filters ===
+youtube.com##.video-ads
+youtube.com##.ytd-promoted-sparkles-web-renderer
+youtube.com##ytd-ad-slot-renderer
+youtube.com##.ad-showing
+youtube.com###masthead-ad
+youtube.com##ytd-banner-promo-renderer
+youtube.com##ytd-statement-banner-renderer
+youtube.com##.ytd-rich-item-renderer.style-scope:has([is-slim-media])
+
+! === General Cosmetic Filters ===
+##.ad-banner
+##.ad-container
+##.ad-wrapper
+##.ad-slot
+##.ads-container
+##.sidebar-ad
+##.top-ad
+##.header-ad
+##[id^="ad_"]
+##[class^="ad_"]
+##[id*="google_ads"]
+##.dfp-tag-wrapper
+##.advertisement
+##.adsbygoogle
+
+! === Tracking Pixels ===
+||pixel.facebook.com^
+||pixel.twitter.com^
+||pixel.linkedin.com^
+||p.typekit.net^
+||scorecardresearch.com^
+||b.scorecardresearch.com^
+||2o7.net^
+||omtrdc.net^
+||demdex.net^
+||everesttech.net^
